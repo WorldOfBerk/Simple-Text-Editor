@@ -34,11 +34,7 @@ public class FileOperationsImpl implements FileOperations{
     @Override
     public void saveFile() {
         if (currentFile != null) {
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter(currentFile))) {
-                textArea.write(writer);
-            } catch (IOException e) {
-                JOptionPane.showMessageDialog(frame, "File could not be saved.", "Error", JOptionPane.ERROR_MESSAGE);
-            }
+            saveFileWithExtension(currentFile);
         } else {
             saveFileAs();
         }
@@ -50,7 +46,19 @@ public class FileOperationsImpl implements FileOperations{
         int option = fileChooser.showSaveDialog(frame);
         if (option == JFileChooser.APPROVE_OPTION) {
             currentFile = fileChooser.getSelectedFile();
-            saveFile();
+            saveFileWithExtension(currentFile);
+        }
+    }
+
+    private void saveFileWithExtension(File file) {
+        String filePath = file.getPath();
+        if (!filePath.toLowerCase().endsWith(".txt")) {
+            file = new File(filePath + ".txt");
+        }
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+            textArea.write(writer);
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(frame, "File could not be saved.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 }
