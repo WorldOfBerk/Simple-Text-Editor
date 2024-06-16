@@ -1,10 +1,7 @@
 package file;
 
 import javax.swing.*;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 
 public class FileOperationsImpl implements FileOperations{
 
@@ -36,7 +33,15 @@ public class FileOperationsImpl implements FileOperations{
 
     @Override
     public void saveFile() {
-
+        if (currentFile != null) {
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(currentFile))) {
+                textArea.write(writer);
+            } catch (IOException e) {
+                JOptionPane.showMessageDialog(frame, "File could not be saved.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            saveFileAs();
+        }
     }
 
     @Override
