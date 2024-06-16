@@ -46,6 +46,11 @@ public class FileOperationsImpl implements FileOperations{
 
     @Override
     public void saveFileAs() {
-
+        JFileChooser fileChooser = new JFileChooser();
+        int option = fileChooser.showSaveDialog(frame);
+        if (option == JFileChooser.APPROVE_OPTION) {
+            currentFile = fileChooser.getSelectedFile();
+            saveFile();
+        }
     }
 }
