@@ -52,7 +52,7 @@ public class FileOperationsImpl implements FileOperations{
 
     private void saveFileWithExtension(File file) {
         String filePath = file.getPath();
-        if (!filePath.toLowerCase().endsWith(".txt")) {
+        if (!filePath.contains(".")) {
             file = new File(filePath + ".txt");
         }
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {

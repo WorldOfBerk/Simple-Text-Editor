@@ -5,7 +5,6 @@ import file.FileOperationsImpl;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
 
 public class NotepadWindow extends JFrame {
 
@@ -14,16 +13,16 @@ public class NotepadWindow extends JFrame {
 
     public NotepadWindow() {
 
-        setTitle("Notepad Window");
+        setTitle("Notepad");
         setSize(800, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         textArea = new JTextArea();
         add(new JScrollPane(textArea), BorderLayout.CENTER);
 
+        createMenuBar();
         fileOperations = new FileOperationsImpl(this, textArea);
 
-        createMenuBar();
     }
 
     private void createMenuBar() {
